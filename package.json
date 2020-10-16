@@ -1,0 +1,82 @@
+{
+    "name": "somosemi",
+    "displayName": "Somo-Semi",
+    "description": "Adds semicolon at the end of the current line or at the beginning of the next newline",
+    "version": "0.1.8",
+    "license": "GPL-3.0",
+    "publisher": "mombosolutions",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/somombo/somosemi"
+    },
+    "bugs": {
+        "url": "https://github.com/somombo/somosemi/issues"
+    },
+    "engines": {
+        "vscode": "^1.32.0"
+    },
+    "categories": [
+        "Snippets",
+        "Other"
+    ],
+    "keywords": [
+        "semicolon",
+        "production",
+        "speed"
+    ],
+    "icon": "images/icon.png",
+    "main": "./dist/extension",
+    "activationEvents": [
+        "onCommand:somosemi.newline",
+        "onCommand:somosemi.endline"
+    ],
+    "contributes": {
+        "commands": [
+            {
+                "command": "somosemi.newline",
+                "title": "Somo-Semi: Jump to newline and add semi to end of newline"
+            },
+            {
+                "command": "somosemi.endline",
+                "title": "Somo-Semi: Add semi to end of current-line and hold position"
+            }
+        ],
+        "keybindings": [
+            {
+                "command": "somosemi.newline",
+                "key": "ctrl+enter",
+                "mac": "cmd+enter",
+                "when": "editorTextFocus && !editorReadonly"
+            },
+            {
+                "command": "somosemi.endline",
+                "key": "ctrl+;",
+                "mac": "cmd+;",
+                "when": "editorTextFocus && !editorReadonly"
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run --silent uninstallext && npm run compile",
+        "uninstallext": "code --uninstall-extension mombosolutions.somosemi",
+        "installextlocal": "code --install-extension mombosolutions.somosemi.vsix",
+        "installext": "code --install-extension mombosolutions.somosemi",
+        "getext": " code --list-extensions  --show-versions | grep somosemi",
+        "postpackage": "npm run --silent installextlocal",
+        "package": "vsce package -o mombosolutions.somosemi.vsix",
+        "compile": "tsc -p ./",
+        "lint": "eslint . --ext .ts,.tsx",
+        "watch": "tsc -watch -p ./",
+        "clean": "npm run --silent reset -- -e !node_modules -e !node_modules/**/*",
+        "reset": "git clean -dfX"
+    },
+    "devDependencies": {
+        "@types/node": "^12.12.0",
+        "@types/vscode": "^1.32.0",
+        "@typescript-eslint/eslint-plugin": "^3.0.2",
+        "@typescript-eslint/parser": "^3.0.2",
+        "eslint": "^7.1.0",
+        "typescript": "^4.0.2",
+        "vsce": "^1.81.1"
+    }
+}
